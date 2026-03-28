@@ -9,6 +9,7 @@ from app.services.cutover_service import CutoverService
 from app.services.plan_loader import PlanLoader
 
 router = APIRouter(prefix="/api", tags=["api"])
+MAX_UPLOAD_BYTES = 256 * 1024
 
 
 def _service(db: Session) -> CutoverService:
@@ -28,7 +29,7 @@ def assess_sample(sample_id: str, db: Session = Depends(get_db)) -> dict:
 
 @router.post("/cutover/upload")
 async def assess_upload(file: UploadFile = File(...), db: Session = Depends(get_db)) -> dict:
-    if file.size and file.size > 1_000_000:
+    if file.size and file.size > MAX_UPLOAD_BYTES:
         raise HTTPException(status_code=413, detail="Payload too large")
     payload = await file.read()
     try:

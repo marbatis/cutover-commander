@@ -26,6 +26,9 @@ uvicorn app.main:app --reload
 ## Heroku
 `Procfile` and `runtime.txt` are included.
 
+## API notes
+- `POST /api/cutover/upload` accepts JSON uploads up to `256 KB`.
+
 ## Mock mode
 No OpenAI key required for MVP.
 
