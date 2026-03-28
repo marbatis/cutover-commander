@@ -1,0 +1,17 @@
+{
+  "cutover_id": "cutover_blocked_001",
+  "systems": ["legacy_payments", "new_payments"],
+  "dependencies": [],
+  "tasks": [
+    {"task_id": "t1", "name": "Stop jobs", "depends_on": [], "duration_minutes": 10, "status": "ready"},
+    {"task_id": "t2", "name": "Apply migration", "depends_on": ["t1"], "duration_minutes": 50, "status": "blocked"}
+  ],
+  "windows": [{"name": "cutover_window", "start": "00:00", "end": "02:00"}],
+  "checkpoints": ["pre-check"],
+  "rollback_steps": [],
+  "reconciliation_points": [],
+  "owners": ["payments"],
+  "rehearsals_complete": false,
+  "freeze_window": true,
+  "known_risks": ["high unresolved dependency"]
+}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card">
+  <h2>Past Assessments</h2>
+  <table>
+    <thead><tr><th>Report</th><th>Cutover</th><th>Decision</th><th>Score</th></tr></thead>
+    <tbody>
+    {% for item in reports %}
+      <tr>
+        <td><a href="/report/{{ item.report.report_id }}">{{ item.report.report_id }}</a></td>
+        <td>{{ item.report.cutover_id }}</td>
+        <td>{{ item.report.decision }}</td>
+        <td>{{ item.report.readiness_score }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

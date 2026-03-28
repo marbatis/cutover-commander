@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+{% if not item %}
+<section class="card"><h2>Not found</h2></section>
+{% else %}
+<section class="card">
+  <h2>Cutover {{ item.report.cutover_id }}</h2>
+  <p>Decision: <strong>{{ item.report.decision }}</strong></p>
+  <p>Readiness score: {{ item.report.readiness_score }}</p>
+  <h3>Critical path</h3>
+  <p>{{ item.report.critical_path }}</p>
+  <h3>Blockers</h3>
+  <p>{{ item.report.blockers }}</p>
+  <h3>Rollback triggers</h3>
+  <p>{{ item.report.rollback_triggers }}</p>
+  <h3>Reconciliation watchlist</h3>
+  <p>{{ item.report.reconciliation_watchlist }}</p>
+  <p>{{ item.report.memo }}</p>
+</section>
+{% endif %}
+{% endblock %}

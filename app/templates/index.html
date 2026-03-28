@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card">
+  <h2>Sample Plans</h2>
+  <ul>
+    {% for sample in samples %}
+      <li><a href="/run/{{ sample }}">Run {{ sample }}</a></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

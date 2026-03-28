@@ -1,0 +1,18 @@
+{
+  "cutover_id": "cutover_caution_001",
+  "systems": ["legacy_orders", "new_orders"],
+  "dependencies": [],
+  "tasks": [
+    {"task_id": "t1", "name": "Pause ingestion", "depends_on": [], "duration_minutes": 15, "status": "ready"},
+    {"task_id": "t2", "name": "Swap endpoint", "depends_on": ["t1"], "duration_minutes": 30, "status": "ready"},
+    {"task_id": "t3", "name": "Verify queue drain", "depends_on": ["t2"], "duration_minutes": 20, "status": "ready"}
+  ],
+  "windows": [{"name": "cutover_window", "start": "02:00", "end": "05:00"}],
+  "checkpoints": ["pre-check", "post-switch"],
+  "rollback_steps": ["restore endpoint"],
+  "reconciliation_points": [],
+  "owners": ["orders"],
+  "rehearsals_complete": false,
+  "freeze_window": false,
+  "known_risks": ["high traffic variance"]
+}

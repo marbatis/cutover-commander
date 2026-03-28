@@ -1,0 +1,19 @@
+{
+  "cutover_id": "cutover_core_001",
+  "systems": ["legacy_billing", "new_billing", "identity", "notifications"],
+  "dependencies": [{"from": "identity", "to": "new_billing"}],
+  "tasks": [
+    {"task_id": "t1", "name": "Freeze writes", "depends_on": [], "duration_minutes": 20, "status": "ready"},
+    {"task_id": "t2", "name": "Schema migration", "depends_on": ["t1"], "duration_minutes": 40, "status": "ready"},
+    {"task_id": "t3", "name": "Switch traffic", "depends_on": ["t2"], "duration_minutes": 25, "status": "ready"},
+    {"task_id": "t4", "name": "Validate reconciliation", "depends_on": ["t3"], "duration_minutes": 20, "status": "ready"}
+  ],
+  "windows": [{"name": "cutover_window", "start": "01:00", "end": "04:00"}],
+  "checkpoints": ["pre-check", "post-switch", "post-validation"],
+  "rollback_steps": ["switch back traffic", "restore snapshot"],
+  "reconciliation_points": ["ledger row counts", "invoice totals"],
+  "owners": ["platform", "billing", "sre"],
+  "rehearsals_complete": true,
+  "freeze_window": false,
+  "known_risks": ["medium monitoring lag"]
+}
